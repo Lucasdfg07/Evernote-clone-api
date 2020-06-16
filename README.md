@@ -10,7 +10,7 @@ Here are the technologies used in this project.
 
 * Node JS
 * Express
-* Core
+* Cors
 * JWT Authentication
 
 
