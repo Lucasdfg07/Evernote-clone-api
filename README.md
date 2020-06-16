@@ -55,6 +55,9 @@ Here are the technologies used in this project.
 * Delete an specific note
 >    $ DELETE /notes/:id
 
+* Search notes
+>    $ GET /notes/search
+
 ## Links
   - Repository: https://github.com/Lucasdfg07/Evernote_clone_api
     - In case of sensitive bugs like security vulnerabilities, please contact
