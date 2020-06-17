@@ -6,6 +6,15 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const secret = process.env.JWT_TOKEN;
 
+router.get('/', async function(req, res) {
+  try {
+    const user = await User.find()
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({error: "Error listing Users"});
+  }
+});
+
 router.post('/register', async function(req, res) {
   const { name, email, password } = req.body;
   const user = new User({ name, email, password });
