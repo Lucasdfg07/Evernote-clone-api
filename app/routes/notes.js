@@ -31,7 +31,7 @@ router.get('/:id', withAuth, async (req, res) => {
     }
 })
 
-const isOwner = (use, note) => {
+const isOwner = (user, note) => {
     if(JSON.stringify(user._id) == JSON.stringify(note.author._id))
         return true;
     else
@@ -80,7 +80,8 @@ router.delete('/:id', withAuth, async function(req, res) {
     try {
         let note = await Note.findById(id);
         
-        if(note && is_owner(req.user, note)){
+        if(note && isOwner(req.user, note)){
+            console.log("teste")
             await note.delete();
             res.json({message: 'OK'}).status(204);
         } else {
