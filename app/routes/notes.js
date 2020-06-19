@@ -81,7 +81,6 @@ router.delete('/:id', withAuth, async function(req, res) {
         let note = await Note.findById(id);
         
         if(note && isOwner(req.user, note)){
-            console.log("teste")
             await note.delete();
             res.json({message: 'OK'}).status(204);
         } else {
