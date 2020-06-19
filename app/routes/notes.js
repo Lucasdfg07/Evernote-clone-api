@@ -10,7 +10,7 @@ router.post('/', withAuth, async (req, res) => {
 
     try {
         let note = new Note({title: title, body: body, author: req.user._id});
-        await user.save();
+        await note.save();
         res.status(200).json(note);
     } catch(error) {
         res.status(500).json({error: 'Problem to create a new note'});
