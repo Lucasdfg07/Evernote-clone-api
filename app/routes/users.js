@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const secret = process.env.JWT_TOKEN;
+const withAuth = require('../middlewares/auth');
 
 router.get('/', async function(req, res) {
   try {
@@ -12,6 +13,37 @@ router.get('/', async function(req, res) {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({error: "Error listing Users"});
+  }
+});
+
+router.put('/:id', withAuth, async function(req, res) {
+  const { name, email, password } = req.body;
+  const { id } = req.params;
+
+  try {
+    var user = await User.findById(id);
+
+    user.name = name;
+    user.email = email;
+    user.password = password;
+    await user.save();
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.delete('/:id', withAuth, async function(req, res) {
+  const { id } = req.params;
+
+  try {
+    let user = await User.findById(id);    
+    await user.delete();
+    
+    res.json({message: 'OK'}).status(201);
+  } catch (error) {
+    res.status(500).json({error: error});
   }
 });
 
