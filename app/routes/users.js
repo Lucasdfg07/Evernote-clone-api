@@ -34,9 +34,11 @@ router.put('/:id', withAuth, async function(req, res) {
   }
 });
 
-router.delete('/', withAuth, async function(req, res) {
+router.delete('/:id', withAuth, async function(req, res) {
+  const { id } = req.params;
+
   try {
-    let user = await User.findOne({_id: req.user._id });    
+    let user = await User.findById(id);    
     await user.delete();
     
     res.json({message: 'OK'}).status(201);
